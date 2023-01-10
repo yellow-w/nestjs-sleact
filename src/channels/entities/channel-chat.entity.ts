@@ -6,14 +6,14 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
     schema: 'sleact',
     name: 'channelchats'
 })export class ChannelChat{
-    @Column('varchar',{name: 'content'})
+    @Column('text',{name: 'content'})
     content: string;
 
-    @Column('varchar',{ name: 'UserId'})
-    UserId: string;
+    @Column('int',{ name: 'UserId'})
+    UserId: number;
 
-    @Column('varchar',{name: 'ChannelId'})
-    ChannelId: string;
+    @Column('int',{name: 'ChannelId'})
+    ChannelId: number;
 
     @ManyToOne(()=>Channel, (channel)=> channel._ChannelChats ,{
         onDelete:'SET NULL',

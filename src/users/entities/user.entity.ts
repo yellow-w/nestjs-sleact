@@ -12,13 +12,22 @@ import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany } from "ty
     name: 'users'
 })
 export class User extends DateEntity{
-    @Column()
+    @Column('varchar',{
+        name: 'email',
+        length: 30
+    })
     email: string;
 
-    @Column()
+    @Column('varchar',{
+        name: 'nickname',
+        length: 30
+    })    
     nickname: string;
 
-    @Column()
+    @Column('varchar',{
+        name: 'password',
+        length: 100
+    })    
     password: string;
 
     @OneToMany(()=>Workspace, (workspaces)=> workspaces._Owner)

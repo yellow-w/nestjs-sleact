@@ -6,11 +6,11 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
     schema: 'sleact',
     name: 'channelmembers'
 })export class ChannelMember {
-    @Column('varchar',{name:'ChannelId'})
-    ChannelId: string;
+    @Column('int',{name:'ChannelId'})
+    ChannelId: number;
 
-    @Column('varchar',{ name: 'UserId'})
-    UserId: string;
+    @Column('int',{ name: 'UserId'})
+    UserId: number;
 
     @ManyToOne(()=>Channel, (channel)=>channel._ChannelMembers ,{
         onDelete: 'CASCADE',

@@ -6,17 +6,17 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
     schema: 'sleact',
     name: 'dms'
 })export class DM {
-    @Column('varchar',{ name: 'content'})
+    @Column('text',{ name: 'content'})
     content: string;
 
-    @Column('varchar', {name: 'WorkspaceId'})
-    WorkspaceId: string;
+    @Column('int', {name: 'WorkspaceId'})
+    WorkspaceId: number;
 
-    @Column('varchar',{ name: 'SenderId'})
-    SenderId: string;
+    @Column('int',{ name: 'SenderId'})
+    SenderId: number;
 
-    @Column('varchar',{ name: 'ReceiverId'})
-    ReceiverId: string;
+    @Column('int',{ name: 'ReceiverId'})
+    ReceiverId: number;
 
     @ManyToOne(()=> Workspace, (workspace)=> workspace._DMs,{
         onDelete:'SET NULL',

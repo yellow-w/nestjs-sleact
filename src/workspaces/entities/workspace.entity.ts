@@ -10,10 +10,16 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from "ty
     name: 'workspaces'
 })
 export class Workspace extends DateEntity {
-    @Column('varchar',{name: 'name'})
+    @Column('varchar',{
+        name: 'name',
+        length: 30
+    })
     name: string
 
-    @Column('varchar',{name: 'url'})
+    @Column('varchar',{
+        name: 'url',
+        length: 30
+    })
     url: string
 
     @Column('varchar',{name: 'OwnerId'})

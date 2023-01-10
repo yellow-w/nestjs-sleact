@@ -7,11 +7,11 @@ import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
     schema: 'sleact',
     name: 'workspacemembers'
 })export class WorkspaceMember extends DateEntity{
-    @Column('varchar',{name: 'WorkspaceId'})
-    WorkspaceId: string;
+    @Column('int',{name: 'WorkspaceId'})
+    WorkspaceId: number;
 
-    @Column('varchar',{name: 'UserId'})
-    UserId: string;
+    @Column('int',{name: 'UserId'})
+    UserId: number;
 
     @Column('timestamp',{name: 'loggedInAt'})
     loggedInAt: Date | null;

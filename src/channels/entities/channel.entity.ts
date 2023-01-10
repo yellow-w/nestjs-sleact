@@ -8,14 +8,17 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from "ty
     schema: 'sleact',
     name: 'channels'
 })export class Channel {
-    @Column('varchar',{ name: 'name'})
+    @Column('varchar',{ 
+        name: 'name',
+        length: 30
+    })
     name: string;
 
     @Column('boolean',{ name: 'private'})
     private: boolean | null;
 
-    @Column('varchar',{ name: 'WorkspaceId'})
-    WorkspaceId: string;
+    @Column('int',{ name: 'WorkspaceId'})
+    WorkspaceId: number;
 
     @ManyToOne(()=> Workspace, (workspace)=>{workspace._Channels},{
         onDelete: 'SET NULL',
