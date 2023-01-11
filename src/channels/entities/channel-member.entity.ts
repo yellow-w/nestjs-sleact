@@ -1,34 +1,29 @@
-import { Channel } from "src/channels/entities/channel.entity";
-import { User } from "src/users/entities/user.entity";
-import { Column, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { CommonEntity } from "@src/common/entities/common.entity";
+import { Channels } from "src/channels/entities/channel.entity";
+import { Users } from "src/users/entities/user.entity";
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, UpdateDateColumn } from "typeorm";
 
-@Entity({
-    schema: 'sleact',
-    name: 'channelmembers'
-})export class ChannelMember {
-    @Column('int',{name:'ChannelId'})
-    ChannelId: number;
 
-    @Column('int',{ name: 'UserId'})
-    UserId: number;
+// @Index('UserId', ['UserId'], {})
+@Entity({ name: 'channelmembers' })
+export class ChannelMembers extends CommonEntity{
+  @Column('int', { primary: true, name: 'ChannelId' })
+  ChannelId: number;
 
-    @ManyToOne(()=>Channel, (channel)=>channel._ChannelMembers ,{
-        onDelete: 'CASCADE',
-        onUpdate:'CASCADE'
-    })
-    @JoinColumn([{
-        name: 'ChannelId',
-        referencedColumnName:'id'
-    }])
-    _Channel: Channel;
+  @Column('int', { primary: true, name: 'UserId' })
+  UserId: number;
 
-    @ManyToOne(()=>User, (user)=> user._ChannelMembers ,{
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-    })
-    @JoinColumn([{
-        name: 'UserId',
-        referencedColumnName: 'id'
-    }])
-    _User: User;
+  @ManyToOne(() => Channels, (channels) => channels.ChannelMembers, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'ChannelId', referencedColumnName: 'id' }])
+  Channel: Channels;
+
+  @ManyToOne(() => Users, (users) => users.ChannelMembers, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'UserId', referencedColumnName: 'id' }])
+  User: Users;
 }

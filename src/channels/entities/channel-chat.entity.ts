@@ -1,37 +1,33 @@
-import { Channel } from 'src/channels/entities/channel.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { CommonEntity } from '@src/common/entities/common.entity';
+import { Channels } from 'src/channels/entities/channel.entity';
+import { Mentions } from 'src/mentions/mentions.entity';
+import { Users } from 'src/users/entities/user.entity';
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity({
-    schema: 'sleact',
-    name: 'channelchats'
-})export class ChannelChat{
-    @Column('text',{name: 'content'})
-    content: string;
+// @Index('UserId', ['UserId'], {})
+@Index('ChannelId', ['ChannelId'], {})
+@Entity({ name: 'channelchats' })
+export class ChannelChats extends CommonEntity{
+  @Column('varchar', { name: 'content' })
+  content: string;
 
-    @Column('int',{ name: 'UserId'})
-    UserId: number;
+  @Column('int', { name: 'UserId', nullable: true })
+  UserId: number | null;
 
-    @Column('int',{name: 'ChannelId'})
-    ChannelId: number;
+  @Column('int', { name: 'ChannelId', nullable: true })
+  ChannelId: number | null;
 
-    @ManyToOne(()=>Channel, (channel)=> channel._ChannelChats ,{
-        onDelete:'SET NULL',
-        onUpdate:'CASCADE'
-    })
-    @JoinColumn([{
-        name: 'ChannelId',
-        referencedColumnName: 'id'
-    }])
-    _Channel: Channel; 
+  @ManyToOne(() => Users, (users) => users.ChannelChats, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'UserId', referencedColumnName: 'id' }])
+  User: Users;
 
-    @ManyToOne(()=>User, (user)=> user._ChannelChats ,{
-        onDelete: 'SET NULL',
-        onUpdate: 'CASCADE'
-    })
-    @JoinColumn([{
-        name: 'UserId',
-        referencedColumnName: 'id'
-    }])
-    _User: User;
+  @ManyToOne(() => Channels, (channels) => channels.ChannelChats, {
+    onDelete: 'SET NULL',
+    onUpdate: 'CASCADE',
+  })
+  @JoinColumn([{ name: 'ChannelId', referencedColumnName: 'id' }])
+  Channel: Channels;
 }

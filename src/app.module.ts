@@ -8,12 +8,31 @@ import { UsersModule } from './users/users.module';
 import { WorkspacesModule } from './workspaces/workspaces.module';
 import { ChannelsModule } from './channels/channels.module';
 import { DmsModule } from './dms/dms.module';
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { MentionsModule } from './mentions/mentions.module';
+import { CommonModule } from './common/common.module';
+import { DataSource } from 'typeorm';
 
 
 @Module({
-  imports: [ConfigModule.forRoot({
+  imports: [
+    ConfigModule.forRoot({
     isGlobal: true,
-  }), UsersModule, WorkspacesModule, ChannelsModule, DmsModule],
+  }), 
+  TypeOrmModule.forRoot({
+    type: 'postgres',
+    host: 'localhost',
+    port: 5432,
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    autoLoadEntities: true, // entities: ['entities/*.js]
+    synchronize: false, //개발 환경일 때만 true. DB 생성 후에는 false 값으로 바꿔주자
+    logging: true, //orm을 사용하는 경우의 개발환경에서는 logging을 켜두는 것이 좋다
+    keepConnectionAlive: true,  //@deprecated 
+  }),
+  UsersModule, WorkspacesModule, ChannelsModule, DmsModule, MentionsModule, CommonModule
+],
   controllers: [AppController,],
   providers: [AppService, ConfigService],
 })

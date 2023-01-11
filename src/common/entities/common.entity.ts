@@ -1,11 +1,14 @@
-import { Entity, DeleteDateColumn, UpdateDateColumn, CreateDateColumn } from "typeorm";
+import { Entity, DeleteDateColumn, UpdateDateColumn, CreateDateColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({
-    schema: 'sleact',
-    name: 'dates'
+    name: 'commons'
 })
-export class DateEntity{
-    
+export class CommonEntity{
+    @PrimaryGeneratedColumn({
+        type: 'int'
+    })
+    id: number;
+
     @CreateDateColumn({
         type: 'timestamp',
         name: 'createdAt',
