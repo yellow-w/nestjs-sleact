@@ -7,18 +7,24 @@ import { DMs } from "src/dms/entities/dm.entity";
 import { Mentions } from "src/mentions/mentions.entity";
 import { WorkspaceMembers } from "src/workspaces/entities/workspace-member.entity";
 import { Workspaces } from "src/workspaces/entities/workspace.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, Entity, Index, JoinTable, ManyToMany, OneToMany} from "typeorm";
+import { IsEmail, IsNotEmpty, IsString }from 'class-validator'
 
 
 @Index('email', ['email'], { unique: true })
 @Entity({ name: 'users' })
 export class Users extends CommonEntity{
+  @IsEmail()
   @Column('varchar', { name: 'email', unique: true, length: 30 })
   email: string;
 
+  @IsString()
+  @IsNotEmpty()
   @Column('varchar', { name: 'nickname', length: 30 })
   nickname: string;
 
+  @IsString()
+  @IsNotEmpty()
   @Column('varchar', { name: 'password', length: 100, select: false })
   password: string;
 
