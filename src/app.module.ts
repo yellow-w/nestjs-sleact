@@ -12,6 +12,8 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { MentionsModule } from './mentions/mentions.module';
 import { CommonModule } from './common/common.module';
 import { DataSource } from 'typeorm';
+import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
@@ -31,10 +33,11 @@ import { DataSource } from 'typeorm';
     logging: true, //orm을 사용하는 경우의 개발환경에서는 logging을 켜두는 것이 좋다
     keepConnectionAlive: true,  //@deprecated 
   }),
-  UsersModule, WorkspacesModule, ChannelsModule, DmsModule, MentionsModule, CommonModule
+  AuthModule,
+  UsersModule, WorkspacesModule, ChannelsModule, DmsModule, MentionsModule, CommonModule, AuthModule
 ],
   controllers: [AppController,],
-  providers: [AppService, ConfigService],
+  providers: [AppService, ConfigService, AuthService],
 })
 
 export class AppModule implements NestModule{
